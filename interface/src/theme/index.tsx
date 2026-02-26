@@ -41,48 +41,44 @@ export function colors(darkMode: boolean): Colors {
     black,
 
     // text
-    text1: darkMode ? '#FFFFFF' : '#000000',
-    text2: darkMode ? '#C3C5CB' : '#565A69',
-    text3: darkMode ? '#6C7284' : '#888D9B',
-    text4: darkMode ? '#565A69' : '#C3C5CB',
-    text5: darkMode ? '#2C2F36' : '#EDEEF2',
+    text1: darkMode ? '#E8E6F0' : '#1A0A2E',
+    text2: darkMode ? '#B8B0C8' : '#4A3D5C',
+    text3: darkMode ? '#7A7090' : '#8878A0',
+    text4: darkMode ? '#4A3D5C' : '#B8B0C8',
+    text5: darkMode ? '#261B38' : '#F0ECF5',
 
     // backgrounds / greys
-    bg1: darkMode ? '#212429' : '#FFFFFF',
-    bg2: darkMode ? '#2C2F36' : '#F7F8FA',
-    bg3: darkMode ? '#40444F' : '#EDEEF2',
-    bg4: darkMode ? '#565A69' : '#CED0D9',
-    bg5: darkMode ? '#6C7284' : '#888D9B',
+    bg1: darkMode ? '#0F0A1A' : '#FEFCFF',
+    bg2: darkMode ? '#1A1228' : '#F8F5FC',
+    bg3: darkMode ? '#2D2140' : '#EDE6F5',
+    bg4: darkMode ? '#4A3D5C' : '#D4C8E8',
+    bg5: darkMode ? '#6A5C80' : '#9888B0',
 
     //specialty colors
-    modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',
-    advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
+    modalBG: darkMode ? 'rgba(10,5,20,.65)' : 'rgba(0,0,0,0.3)',
+    advancedBG: darkMode ? 'rgba(15,10,26,0.6)' : 'rgba(255,255,255,0.6)',
 
-    //primary colors
-    primary1: darkMode ? '#2172E5' : '#ff007a',
-    primary2: darkMode ? '#3680E7' : '#FF8CC3',
-    primary3: darkMode ? '#4D8FEA' : '#FF99C9',
-    primary4: darkMode ? '#376bad70' : '#F6DDE8',
-    primary5: darkMode ? '#153d6f70' : '#FDEAF1',
+    //primary colors — Ridge purple palette
+    primary1: darkMode ? '#A855F7' : '#7B2FBE',
+    primary2: darkMode ? '#B87AF5' : '#9B59D0',
+    primary3: darkMode ? '#C084FC' : '#AD6FDC',
+    primary4: darkMode ? '#7B2FBE50' : '#E8D5F5',
+    primary5: darkMode ? '#4C1D9550' : '#F3E8FF',
 
     // color text
-    primaryText1: darkMode ? '#6da8ff' : '#ff007a',
+    primaryText1: darkMode ? '#C084FC' : '#7B2FBE',
 
     // secondary colors
-    secondary1: darkMode ? '#2172E5' : '#ff007a',
-    secondary2: darkMode ? '#17000b26' : '#F6DDE8',
-    secondary3: darkMode ? '#17000b26' : '#FDEAF1',
+    secondary1: darkMode ? '#A855F7' : '#7B2FBE',
+    secondary2: darkMode ? '#2D1B4E30' : '#E8D5F5',
+    secondary3: darkMode ? '#2D1B4E30' : '#F3E8FF',
 
     // other
-    red1: '#FF6871',
-    red2: '#F82D3A',
-    green1: '#27AE60',
-    yellow1: '#FFE270',
-    yellow2: '#F3841E'
-
-    // dont wanna forget these blue yet
-    // blue4: darkMode ? '#153d6f70' : '#C4D9F8',
-    // blue5: darkMode ? '#153d6f70' : '#EBF4FF',
+    red1: '#EF4444',
+    red2: '#DC2626',
+    green1: '#22C55E',
+    yellow1: '#FBBF24',
+    yellow2: '#F59E0B'
   }
 }
 
@@ -97,7 +93,7 @@ export function theme(darkMode: boolean): DefaultTheme {
     },
 
     //shadows
-    shadow1: darkMode ? '#000' : '#2F80ED',
+    shadow1: darkMode ? '#000' : '#7B2FBE',
 
     // media queries
     mediaWidth: mediaWidthTemplates,
