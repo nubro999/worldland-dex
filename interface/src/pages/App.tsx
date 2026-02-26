@@ -28,12 +28,16 @@ const AppWrapper = styled.div`
   flex-flow: column;
   align-items: flex-start;
   overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
 `
 
 const HeaderWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
 `
 
 const BodyWrapper = styled.div`
@@ -45,13 +49,12 @@ const BodyWrapper = styled.div`
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 10;
+  position: relative;
+  z-index: 1;
 
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
       padding: 16px;
   `};
-
-  z-index: 1;
 `
 
 const Marginer = styled.div`

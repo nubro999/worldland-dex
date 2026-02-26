@@ -26,7 +26,7 @@ const generateRandomOffset = (minDist: number, maxDist: number): GridOffset => {
 const Squares: React.FC<SquaresProps> = ({
   direction = 'diagonal',
   speed = 0.5,
-  borderColor = 'rgba(123, 47, 190, 0.12)',
+  borderColor = 'rgba(123, 47, 190, 0.18)',
   squareSize = 40,
   hoverFillColor = 'rgba(168, 85, 247, 0.25)'
 }) => {
