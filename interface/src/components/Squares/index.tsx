@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
 
 interface GridOffset {
   x: number
@@ -13,7 +14,6 @@ interface SquaresProps {
   hoverFillColor?: string
 }
 
-// Generate random offset within distance range
 const generateRandomOffset = (minDist: number, maxDist: number): GridOffset => {
   const distance = minDist + Math.random() * (maxDist - minDist)
   const angle = Math.random() * 2 * Math.PI
@@ -32,8 +32,6 @@ const Squares: React.FC<SquaresProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const requestRef = useRef<number | null>(null)
-  const numSquaresX = useRef<number>(0)
-  const numSquaresY = useRef<number>(0)
   const gridOffset = useRef<GridOffset>({ x: 0, y: 0 })
   const hoveredSquareRef = useRef<GridOffset | null>(null)
   const randomOffsetsRef = useRef<GridOffset[]>([
@@ -42,6 +40,19 @@ const Squares: React.FC<SquaresProps> = ({
     { x: 0, y: 0 },
     { x: 0, y: 0 }
   ])
+  const [portalContainer] = useState(() => {
+    const el = document.createElement('div')
+    el.id = 'squares-bg'
+    el.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;'
+    return el
+  })
+
+  useEffect(() => {
+    document.body.insertBefore(portalContainer, document.body.firstChild)
+    return () => {
+      document.body.removeChild(portalContainer)
+    }
+  }, [portalContainer])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -49,10 +60,8 @@ const Squares: React.FC<SquaresProps> = ({
     const ctx = canvas.getContext('2d')
 
     const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-      numSquaresX.current = Math.ceil(canvas.width / squareSize) + 1
-      numSquaresY.current = Math.ceil(canvas.height / squareSize) + 1
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
     }
 
     window.addEventListener('resize', resizeCanvas)
@@ -60,7 +69,6 @@ const Squares: React.FC<SquaresProps> = ({
 
     const drawGrid = () => {
       if (!ctx) return
-
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize
@@ -70,16 +78,13 @@ const Squares: React.FC<SquaresProps> = ({
         for (let y = startY; y < canvas.height + squareSize; y += squareSize) {
           const squareX = x - (gridOffset.current.x % squareSize)
           const squareY = y - (gridOffset.current.y % squareSize)
-
           const gridX = Math.floor((x - startX) / squareSize)
           const gridY = Math.floor((y - startY) / squareSize)
 
           if (hoveredSquareRef.current) {
             const hx = hoveredSquareRef.current.x
             const hy = hoveredSquareRef.current.y
-
             const isCursor = gridX === hx && gridY === hy
-
             const mirrorIndex = randomOffsetsRef.current.findIndex(
               offset => gridX === hx + offset.x && gridY === hy + offset.y
             )
@@ -107,19 +112,14 @@ const Squares: React.FC<SquaresProps> = ({
         }
       }
 
-      // Vignette effect matching dark theme
       const gradient = ctx.createRadialGradient(
-        canvas.width / 2,
-        canvas.height / 2,
-        0,
-        canvas.width / 2,
-        canvas.height / 2,
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2,
         Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2
       )
       gradient.addColorStop(0, 'rgba(15, 10, 26, 0)')
       gradient.addColorStop(0.7, 'rgba(15, 10, 26, 0.3)')
       gradient.addColorStop(1, 'rgba(15, 10, 26, 0.85)')
-
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
@@ -146,7 +146,6 @@ const Squares: React.FC<SquaresProps> = ({
         default:
           break
       }
-
       drawGrid()
       requestRef.current = requestAnimationFrame(updateAnimation)
     }
@@ -155,10 +154,8 @@ const Squares: React.FC<SquaresProps> = ({
       const rect = canvas.getBoundingClientRect()
       const mouseX = event.clientX - rect.left
       const mouseY = event.clientY - rect.top
-
       const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize
       const startY = Math.floor(gridOffset.current.y / squareSize) * squareSize
-
       const hoveredSquareX = Math.floor((mouseX + gridOffset.current.x - startX) / squareSize)
       const hoveredSquareY = Math.floor((mouseY + gridOffset.current.y - startY) / squareSize)
 
@@ -168,8 +165,6 @@ const Squares: React.FC<SquaresProps> = ({
         hoveredSquareRef.current.y !== hoveredSquareY
       ) {
         hoveredSquareRef.current = { x: hoveredSquareX, y: hoveredSquareY }
-        
-        // Generate 4 mirror squares at varying distances with purple theme
         randomOffsetsRef.current = [
           generateRandomOffset(2, 4),
           generateRandomOffset(4, 6),
@@ -183,32 +178,30 @@ const Squares: React.FC<SquaresProps> = ({
       hoveredSquareRef.current = null
     }
 
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    // Listen on window for mouse events since canvas has pointer-events:none
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseleave', handleMouseLeave)
     requestRef.current = requestAnimationFrame(updateAnimation)
 
     return () => {
       window.removeEventListener('resize', resizeCanvas)
       if (requestRef.current) cancelAnimationFrame(requestRef.current)
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [direction, speed, borderColor, hoverFillColor, squareSize])
 
-  return (
-    <canvas 
-      ref={canvasRef} 
+  return ReactDOM.createPortal(
+    <canvas
+      ref={canvasRef}
       style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        zIndex: 0,
+        width: '100%',
+        height: '100%',
         display: 'block',
         border: 'none',
       }}
-    />
+    />,
+    portalContainer
   )
 }
 
