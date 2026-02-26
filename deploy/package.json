@@ -1,0 +1,17 @@
+{
+  "name": "worldland-dex-deploy",
+  "version": "1.0.0",
+  "description": "Deploy scripts for Uniswap V2 on WorldLand Chain (ID: 103)",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy-all.js --network worldland",
+    "deploy:local": "hardhat run scripts/deploy-all.js --network hardhat"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@uniswap/lib": "^4.0.1-alpha",
+    "@uniswap/v2-core": "^1.0.1",
+    "dotenv": "^16.6.1",
+    "hardhat": "^2.28.6"
+  }
+}

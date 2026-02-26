@@ -1,0 +1,13 @@
+{
+  "chainId": 103,
+  "rpcUrl": "https://seoul.worldland.foundation/",
+  "deployer": "0xA17E7a1f0c6a31Fd86f50fcA9e650a1b3c04D1a6",
+  "contracts": {
+    "WETH9": "0x3c3c6026D02bB10d42ab338efE780a37542846e0",
+    "UniswapV2Factory": "0xD4E0861B5A339b703462CcCf12f614929605d169",
+    "UniswapV2Router02": "0xEBcf16236DD5968e75174D862DD71864038292cB",
+    "Multicall": "0x54A4A4286D5989daB4942c34B78EADD47CfA5628"
+  },
+  "initCodeHash": "0xfab93e97ec39a7d1c5ebe0ab591f0c9a39fd913f1b569de07b249dce78de7a03",
+  "deployedAt": "2026-02-25T07:49:10.682Z"
+}
