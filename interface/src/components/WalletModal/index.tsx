@@ -274,6 +274,32 @@ export default function WalletModal({
     })
   }
 
+  async function switchToWorldLand() {
+    const provider = (window as any).ethereum
+    if (!provider) return
+    try {
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x67' }] // 103 in hex
+      })
+    } catch (switchError) {
+      if ((switchError as any).code === 4902) {
+        await provider.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: '0x67',
+              chainName: 'WorldLand',
+              nativeCurrency: { name: 'WL', symbol: 'WL', decimals: 18 },
+              rpcUrls: ['https://seoul.worldland.foundation/'],
+              blockExplorerUrls: ['https://scan.worldland.foundation']
+            }
+          ]
+        })
+      }
+    }
+  }
+
   function getModalContent() {
     if (error) {
       return (
@@ -281,10 +307,30 @@ export default function WalletModal({
           <CloseIcon onClick={toggleWalletModal}>
             <CloseColor />
           </CloseIcon>
-          <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
+          <HeaderRow>
+            {error instanceof UnsupportedChainIdError ? 'Switch to WorldLand' : 'Error connecting'}
+          </HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the WorldLand network (Chain ID: 103).</h5>
+              <div style={{ textAlign: 'center' }}>
+                <p style={{ marginBottom: '1rem' }}>This app runs on the WorldLand network (Chain ID: 103).</p>
+                <button
+                  onClick={switchToWorldLand}
+                  style={{
+                    padding: '12px 24px',
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    color: 'white',
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    width: '100%'
+                  }}
+                >
+                  Switch to WorldLand
+                </button>
+              </div>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}

@@ -1,25 +1,37 @@
-import { JSBI, Percent, Token, WETH } from '@uniswap/sdk'
+import { JSBI, Percent, Token } from '@uniswap/sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { injected } from '../connectors'
 
-export const ROUTER_ADDRESS = '0xEBcf16236DD5968e75174D862DD71864038292cB'
+export const ROUTER_ADDRESS = '0x9381B0004cd1090597a0a5296C1a63Ba879775e4'
 
 // WorldLand Chain ID
 const WORLDLAND = 103 as any
+
+// ── Mock tokens on WorldLand (chain 103) ──────────────────────
+// Addresses will be populated after deployment via deploy-tokens.js
+export const MOCK_USDT = new Token(103, '0x4046bd9eC8223c2a9354dC517b2D2d67B75CEbfb', 6, 'USDT', 'Mock Tether USD')
+export const MOCK_USDC = new Token(103, '0x2477e7fCE92FDA16064E95eD4391a0995210ecbD', 6, 'USDC', 'Mock USD Coin')
+export const MOCK_WBTC = new Token(103, '0x25D49C3119f581306f04366A516141368e81A7dC', 8, 'WBTC', 'Mock Wrapped BTC')
+
+// All default tokens for WorldLand chain (used by useAllTokens hook)
+export const WORLDLAND_DEFAULT_TOKENS: { [address: string]: Token } = {
+  [MOCK_USDT.address]: MOCK_USDT,
+  [MOCK_USDC.address]: MOCK_USDC,
+  [MOCK_WBTC.address]: MOCK_WBTC
+}
 
 // a list of tokens by chain
 type ChainTokenList = {
   readonly [chainId: number]: Token[]
 }
 
-const WETH_ONLY: ChainTokenList = {
-  [WORLDLAND]: [(WETH as any)[WORLDLAND]]
-}
+// Wrapped WL — defined manually since @uniswap/sdk doesn't include chain 103
+export const WWL = new Token(103, '0x3c3c6026D02bB10d42ab338efE780a37542846e0', 18, 'WWL', 'Wrapped WL')
 
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
-  ...WETH_ONLY
+  [WORLDLAND]: [WWL, MOCK_USDT, MOCK_USDC, MOCK_WBTC]
 }
 
 /**
@@ -30,15 +42,20 @@ export const CUSTOM_BASES: { [chainId: number]: { [tokenAddress: string]: Token[
 
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
-  ...WETH_ONLY
+  [WORLDLAND]: [WWL, MOCK_USDT, MOCK_USDC, MOCK_WBTC]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
-  ...WETH_ONLY
+  [WORLDLAND]: [WWL, MOCK_USDT, MOCK_USDC, MOCK_WBTC]
 }
 
-export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {}
+export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
+  [WORLDLAND]: [
+    [MOCK_USDT, MOCK_USDC],
+    [MOCK_WBTC, MOCK_USDT]
+  ]
+}
 
 export interface WalletInfo {
   connector?: AbstractConnector

@@ -8,6 +8,16 @@ import { ROUTER_ADDRESS } from '../constants'
 import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@uniswap/sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
+export function getNativeCurrencySymbol(chainId?: number): string {
+  return chainId === 103 ? 'WL' : 'ETH'
+}
+
+export function getCurrencySymbol(currency: Currency | undefined | null, chainId?: number): string {
+  if (!currency) return ''
+  if (currency === ETHER) return getNativeCurrencySymbol(chainId)
+  return currency.symbol ?? ''
+}
+
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
   try {
@@ -25,8 +35,21 @@ const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   42: 'kovan.'
 }
 
-export function getEtherscanLink(chainId: ChainId, data: string, type: 'transaction' | 'token' | 'address'): string {
-  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+export function getEtherscanLink(chainId: ChainId | number, data: string, type: 'transaction' | 'token' | 'address'): string {
+  if (chainId === 103) {
+    const prefix = 'https://scan.worldland.foundation'
+    switch (type) {
+      case 'transaction':
+        return `${prefix}/tx/${data}`
+      case 'token':
+        return `${prefix}/token/${data}`
+      case 'address':
+      default:
+        return `${prefix}/address/${data}`
+    }
+  }
+
+  const prefix = `https://${ETHERSCAN_PREFIXES[chainId as ChainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
 
   switch (type) {
     case 'transaction': {
@@ -101,5 +124,6 @@ export function escapeRegExp(string: string): string {
 
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
   if (currency === ETHER) return true
+  if (currency instanceof Token && currency.chainId === 103) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
 }

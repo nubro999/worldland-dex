@@ -1,7 +1,11 @@
 import { ChainId, Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH } from '@uniswap/sdk'
+import { WWL } from '../constants'
+
+// Patch WETH for WorldLand chain 103
+;(WETH as any)[103] = WWL
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
-  return chainId && currency === ETHER ? WETH[chainId] : currency instanceof Token ? currency : undefined
+  return chainId && currency === ETHER ? (WETH as any)[chainId] : currency instanceof Token ? currency : undefined
 }
 
 export function wrappedCurrencyAmount(
@@ -13,6 +17,6 @@ export function wrappedCurrencyAmount(
 }
 
 export function unwrappedToken(token: Token): Currency {
-  if (token.equals(WETH[token.chainId])) return ETHER
+  if ((WETH as any)[token.chainId] && token.equals((WETH as any)[token.chainId])) return ETHER
   return token
 }

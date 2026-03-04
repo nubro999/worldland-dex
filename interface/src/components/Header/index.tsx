@@ -2,8 +2,10 @@
 import React from 'react'
 import { isMobile } from 'react-device-detect'
 import { Text } from 'rebass'
+import { NavLink } from 'react-router-dom'
 
 import styled from 'styled-components'
+import { darken } from 'polished'
 
 import Logo from '../../assets/svg/logo.svg'
 import LogoDark from '../../assets/svg/logo_white.svg'
@@ -19,7 +21,6 @@ import Menu from '../Menu'
 
 import Row, { RowBetween } from '../Row'
 import Web3Status from '../Web3Status'
-import VersionSwitch from './VersionSwitch'
 
 const HeaderFrame = styled.div`
   display: flex;
@@ -126,6 +127,39 @@ const BalanceText = styled(Text)`
   `};
 `
 
+const HeaderNav = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: ${({ theme }) => theme.bg3};
+  border-radius: 16px;
+  padding: 4px;
+  margin-left: 24px;
+`
+
+const activeClassName = 'ACTIVE'
+
+const HeaderNavLink = styled(NavLink).attrs({ activeClassName })`
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  color: ${({ theme }) => theme.text2};
+  transition: all 0.15s ease;
+
+  &.${activeClassName} {
+    background: ${({ theme }) => theme.bg1};
+    color: ${({ theme }) => theme.text1};
+    font-weight: 600;
+  }
+
+  :hover {
+    color: ${({ theme }) => darken(0.1, theme.text1)};
+  }
+`
+
 const NETWORK_LABELS: { [chainId: number]: string | null } = {
   103: 'WorldLand'
 }
@@ -148,6 +182,11 @@ export default function Header() {
               <img style={{ marginLeft: '4px', marginTop: '4px' }} src={isDark ? WordmarkDark : Wordmark} alt="logo" />
             </TitleText>
           </Title>
+          <HeaderNav>
+            <HeaderNavLink id="swap-nav-link" to="/swap">Swap</HeaderNavLink>
+            <HeaderNavLink id="pool-nav-link" to="/pool">Pool</HeaderNavLink>
+            <HeaderNavLink id="faucet-nav-link" to="/faucet">Faucet</HeaderNavLink>
+          </HeaderNav>
         </HeaderElement>
         <HeaderControls>
           <HeaderElement>
@@ -164,7 +203,6 @@ export default function Header() {
             </AccountElement>
           </HeaderElement>
           <HeaderElementWrap>
-            <VersionSwitch />
             <Settings />
             <Menu />
           </HeaderElementWrap>

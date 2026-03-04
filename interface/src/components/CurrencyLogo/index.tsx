@@ -7,6 +7,12 @@ import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
 
+const KNOWN_LOGOS: { [symbol: string]: string } = {
+  USDT: 'https://assets.coingecko.com/coins/images/325/small/Tether.png',
+  USDC: 'https://assets.coingecko.com/coins/images/6319/small/usdc.png',
+  WBTC: 'https://assets.coingecko.com/coins/images/7598/small/wrapped_bitcoin_wbtc.png'
+}
+
 const getTokenLogoURL = (address: string) =>
   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
 
@@ -20,6 +26,7 @@ const StyledEthereumLogo = styled.img<{ size: string }>`
 const StyledLogo = styled(Logo)<{ size: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
+  border-radius: 24px;
 `
 
 export default function CurrencyLogo({
@@ -37,6 +44,9 @@ export default function CurrencyLogo({
     if (currency === ETHER) return []
 
     if (currency instanceof Token) {
+      const knownLogo = currency.symbol ? KNOWN_LOGOS[currency.symbol] : undefined
+      if (knownLogo) return [knownLogo]
+
       if (currency instanceof WrappedTokenInfo) {
         return [...uriLocations, getTokenLogoURL(currency.address)]
       }
