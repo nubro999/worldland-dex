@@ -26,12 +26,12 @@ type ChainTokenList = {
   readonly [chainId: number]: Token[]
 }
 
-// Wrapped WL — defined manually since @uniswap/sdk doesn't include chain 103
-export const WWL = new Token(103, '0x3c3c6026D02bB10d42ab338efE780a37542846e0', 18, 'WWL', 'Wrapped WL')
+// Wrapped WLC — defined manually since @uniswap/sdk doesn't include chain 103
+export const WWL = new Token(103, '0x3c3c6026D02bB10d42ab338efE780a37542846e0', 18, 'WWLC', 'Wrapped WLC')
 
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
-  [WORLDLAND]: [WWL, MOCK_USDT, MOCK_USDC, MOCK_WBTC]
+  [WORLDLAND]: [MOCK_USDT, MOCK_USDC, MOCK_WBTC]
 }
 
 /**
@@ -42,12 +42,12 @@ export const CUSTOM_BASES: { [chainId: number]: { [tokenAddress: string]: Token[
 
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
-  [WORLDLAND]: [WWL, MOCK_USDT, MOCK_USDC, MOCK_WBTC]
+  [WORLDLAND]: [MOCK_USDT, MOCK_USDC, MOCK_WBTC]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
-  [WORLDLAND]: [WWL, MOCK_USDT, MOCK_USDC, MOCK_WBTC]
+  [WORLDLAND]: [MOCK_USDT, MOCK_USDC, MOCK_WBTC]
 }
 
 export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
@@ -108,6 +108,6 @@ export const PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN: Percent = new Percent(JSBI.Bi
 // for non expert mode disable swaps above this
 export const BLOCKED_PRICE_IMPACT_NON_EXPERT: Percent = new Percent(JSBI.BigInt(1500), BIPS_BASE) // 15%
 
-// used to ensure the user doesn't send so much WL so they end up with <.01
-export const MIN_ETH: JSBI = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .01 WL
+// used to ensure the user doesn't send so much WLC so they end up with <.01
+export const MIN_ETH: JSBI = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .01 WLC
 export const BETTER_TRADE_LINK_THRESHOLD = new Percent(JSBI.BigInt(75), JSBI.BigInt(10000))

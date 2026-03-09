@@ -9,7 +9,7 @@ import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '
 import { TokenAddressMap } from '../state/lists/hooks'
 
 export function getNativeCurrencySymbol(chainId?: number): string {
-  return chainId === 103 ? 'WL' : 'ETH'
+  return chainId === 103 ? 'WLC' : 'ETH'
 }
 
 export function getCurrencySymbol(currency: Currency | undefined | null, chainId?: number): string {

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Info, BookOpen, Code, MessageCircle } from 'react-feather'
+import { Info, BookOpen, Code, Twitter } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -78,7 +78,7 @@ const MenuItem = styled(ExternalLink)`
   }
 `
 
-const CODE_LINK = 'https://github.com/nubro999/worldland-dex'
+const CODE_LINK = 'https://github.com/cryptoecc/worldland-dex'
 
 export default function Menu() {
   const node = useRef<HTMLDivElement>()
@@ -106,9 +106,9 @@ export default function Menu() {
             <Code size={14} />
             Code
           </MenuItem>
-          <MenuItem id="link" href="https://discord.gg/worldland">
-            <MessageCircle size={14} />
-            Discord
+          <MenuItem id="link" href="https://x.com/WorldLand_space">
+            <Twitter size={14} />
+            X (Twitter)
           </MenuItem>
         </MenuFlyout>
       )}

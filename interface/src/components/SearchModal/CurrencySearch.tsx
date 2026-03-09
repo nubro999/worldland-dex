@@ -65,10 +65,8 @@ export function CurrencySearch({
     }
   }, [isAddressSearch])
 
-  const showETH: boolean = useMemo(() => {
-    const s = searchQuery.toLowerCase().trim()
-    return s === '' || s === 'e' || s === 'et' || s === 'eth' || s === 'w' || s === 'wl'
-  }, [searchQuery])
+  // Hide native coin (WLC) from token list — it's only used for gas fees
+  const showETH: boolean = false
 
   const tokenComparator = useTokenComparator(invertSearchOrder)
 

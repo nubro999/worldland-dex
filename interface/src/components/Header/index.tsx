@@ -186,6 +186,7 @@ export default function Header() {
             <HeaderNavLink id="swap-nav-link" to="/swap">Swap</HeaderNavLink>
             <HeaderNavLink id="pool-nav-link" to="/pool">Pool</HeaderNavLink>
             <HeaderNavLink id="faucet-nav-link" to="/faucet">Faucet</HeaderNavLink>
+            <HeaderNavLink id="guide-nav-link" to="/guide">Guide</HeaderNavLink>
           </HeaderNav>
         </HeaderElement>
         <HeaderControls>
@@ -196,7 +197,7 @@ export default function Header() {
             <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
               {account && userEthBalance ? (
                 <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                  {userEthBalance?.toSignificant(4)} WL
+                  {userEthBalance?.toSignificant(4)} WLC
                 </BalanceText>
               ) : null}
               <Web3Status />

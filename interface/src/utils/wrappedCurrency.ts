@@ -4,6 +4,10 @@ import { WWL } from '../constants'
 // Patch WETH for WorldLand chain 103
 ;(WETH as any)[103] = WWL
 
+// Patch ETHER symbol/name for WorldLand (WLC instead of ETH)
+;(ETHER as any).symbol = 'WLC'
+;(ETHER as any).name = 'WorldLand Coin'
+
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
   return chainId && currency === ETHER ? (WETH as any)[chainId] : currency instanceof Token ? currency : undefined
 }

@@ -290,7 +290,7 @@ export default function WalletModal({
             {
               chainId: '0x67',
               chainName: 'WorldLand',
-              nativeCurrency: { name: 'WL', symbol: 'WL', decimals: 18 },
+              nativeCurrency: { name: 'WLC', symbol: 'WLC', decimals: 18 },
               rpcUrls: ['https://seoul.worldland.foundation/'],
               blockExplorerUrls: ['https://scan.worldland.foundation']
             }
