@@ -10,6 +10,9 @@ import { useActiveWeb3React } from '../../hooks'
 import AppBody from '../AppBody'
 import { MOCK_USDT, MOCK_USDC, MOCK_WBTC } from '../../constants'
 import { Dots } from '../../components/swap/styleds'
+import UsdtLogo from '../../assets/images/usdt.png'
+import UsdcLogo from '../../assets/images/usdc.png'
+import WbtcLogo from '../../assets/images/wbtc.png'
 
 const MOCK_TOKEN_ABI = [
   'function mint(address to, uint256 value) external',
@@ -25,9 +28,9 @@ const FAUCET_AMOUNTS: { [symbol: string]: { raw: string; display: string; decima
 }
 
 const TOKENS = [
-  { token: MOCK_USDT, label: 'USDT', description: 'Mock Tether USD', logo: 'https://assets.coingecko.com/coins/images/325/small/Tether.png' },
-  { token: MOCK_USDC, label: 'USDC', description: 'Mock USD Coin', logo: 'https://assets.coingecko.com/coins/images/6319/small/usdc.png' },
-  { token: MOCK_WBTC, label: 'WBTC', description: 'Mock Wrapped BTC', logo: 'https://assets.coingecko.com/coins/images/7598/small/wrapped_bitcoin_wbtc.png' }
+  { token: MOCK_USDT, label: 'USDT', description: 'Mock Tether USD', logo: UsdtLogo },
+  { token: MOCK_USDC, label: 'USDC', description: 'Mock USD Coin', logo: UsdcLogo },
+  { token: MOCK_WBTC, label: 'WBTC', description: 'Mock Wrapped BTC', logo: WbtcLogo }
 ]
 
 const PageWrapper = styled(AutoColumn)`

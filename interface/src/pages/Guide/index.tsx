@@ -127,8 +127,7 @@ export default function Guide() {
 
   return (
     <PageWrapper>
-      {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-      <PageTitle>🚀 Ridge DEX Test Guide</PageTitle>
+      <PageTitle>Ridge DEX Test Guide</PageTitle>
       <PageSubtitle>
         Get test tokens and try swapping on the WorldLand chain.
         <br />
@@ -137,8 +136,7 @@ export default function Guide() {
 
       {/* Prerequisites */}
       <Card>
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <SectionTitle>📋 Before You Start</SectionTitle>
+        <SectionTitle>Before You Start</SectionTitle>
         <Divider />
         <StepRow>
           <StepNumber>1</StepNumber>
@@ -177,8 +175,7 @@ export default function Guide() {
 
       {/* Faucet Guide */}
       <Card>
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <SectionTitle>🪙 Step 1: Claim Test Tokens</SectionTitle>
+        <SectionTitle>Step 1: Claim Test Tokens</SectionTitle>
         <Divider />
         <StepDesc style={{ marginBottom: '12px' }}>
           Go to the <strong>&quot;Faucet&quot;</strong> tab in the top menu to claim free mock tokens for testing.
@@ -227,8 +224,7 @@ export default function Guide() {
 
       {/* Swap Guide */}
       <Card>
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <SectionTitle>🔄 Step 2: Swap Tokens</SectionTitle>
+        <SectionTitle>Step 2: Swap Tokens</SectionTitle>
         <Divider />
         <StepDesc style={{ marginBottom: '12px' }}>
           Swap freely between the mock tokens you claimed from the faucet.
@@ -288,8 +284,7 @@ export default function Guide() {
 
       {/* Notes */}
       <Card>
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <SectionTitle>💡 Good to Know</SectionTitle>
+        <SectionTitle>Good to Know</SectionTitle>
         <Divider />
         <StepDesc style={{ lineHeight: '1.8' }}>
           • All tokens are <strong>test tokens</strong> with no real value.
