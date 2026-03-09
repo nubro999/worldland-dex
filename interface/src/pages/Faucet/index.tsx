@@ -107,9 +107,13 @@ export default function Faucet() {
         await tx.wait()
         setSuccess(prev => ({ ...prev, [symbol]: true }))
       } catch (err) {
-        const msg = (err as any)?.message?.includes('user rejected')
-          ? 'Transaction rejected'
-          : 'Claim failed. Please try again.'
+        console.error('Faucet claim error:', err)
+        const errMsg = (err as any)?.message || ''
+        const msg = errMsg.includes('user rejected') || errMsg.includes('User denied')
+          ? 'Transaction rejected by user.'
+          : errMsg.includes('insufficient funds')
+          ? 'Not enough WL for gas fees.'
+          : 'Claim failed: ' + errMsg.substring(0, 120)
         setErrors(prev => ({ ...prev, [symbol]: msg }))
       } finally {
         setPending(prev => ({ ...prev, [symbol]: false }))
