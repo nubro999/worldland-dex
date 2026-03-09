@@ -25,9 +25,9 @@ const FAUCET_AMOUNTS: { [symbol: string]: { raw: string; display: string; decima
 }
 
 const TOKENS = [
-  { token: MOCK_USDT, color: '#26A17B', label: 'USDT', description: 'Mock Tether USD' },
-  { token: MOCK_USDC, color: '#2775CA', label: 'USDC', description: 'Mock USD Coin' },
-  { token: MOCK_WBTC, color: '#F7931A', label: 'WBTC', description: 'Mock Wrapped BTC' }
+  { token: MOCK_USDT, label: 'USDT', description: 'Mock Tether USD', logo: 'https://assets.coingecko.com/coins/images/325/small/Tether.png' },
+  { token: MOCK_USDC, label: 'USDC', description: 'Mock USD Coin', logo: 'https://assets.coingecko.com/coins/images/6319/small/usdc.png' },
+  { token: MOCK_WBTC, label: 'WBTC', description: 'Mock Wrapped BTC', logo: 'https://assets.coingecko.com/coins/images/7598/small/wrapped_bitcoin_wbtc.png' }
 ]
 
 const PageWrapper = styled(AutoColumn)`
@@ -48,14 +48,12 @@ const TokenHeader = styled.div`
   margin-bottom: 12px;
 `
 
-const TokenBadge = styled.div<{ color: string }>`
-  background: ${({ color }) => color};
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
-  border-radius: 8px;
-  padding: 4px 10px;
-  margin-right: 10px;
+const TokenLogo = styled.img`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
 `
 
 const SuccessMessage = styled.div`
@@ -128,10 +126,10 @@ export default function Faucet() {
         <PageTitle>Test Token Faucet</PageTitle>
         <Subtitle>Claim free test tokens to try swapping and providing liquidity.</Subtitle>
         <AutoColumn gap="sm">
-          {TOKENS.map(({ token, color, label, description }) => (
+          {TOKENS.map(({ token, label, description, logo }) => (
             <TokenCard key={label}>
               <TokenHeader>
-                <TokenBadge color={color}>{label}</TokenBadge>
+                <TokenLogo src={logo} alt={label} />
                 <AutoColumn>
                   <Text fontWeight={500} fontSize={15}>
                     {description}
